@@ -30,7 +30,7 @@ apply plugin: 'com.palantir.docker'
 //group = 'gogs.ktds.co.kr:5000'
 group = 'localhost:5000'
 
-bootWar {
+bootJar {
 	baseName = 'web-mvc-starter'
 	version = '0.0.1-SNAPSHOT'
 }
@@ -95,14 +95,14 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 
 	// Database 초기화 및 JPA 라이브러리
-	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	// compile("org.springframework.boot:spring-boot-starter-data-jpa")
 
 	// H2 Database 라이브러리
-	compile('com.h2database:h2')
+	//  compile('com.h2database:h2')
 
 	// HSQL Database 라이브러리
-	compile('org.hsqldb:hsqldb:2.3.4')
-
+	// compile('org.hsqldb:hsqldb:2.3.4')
+	runtime 'org.postgresql:postgresql:42.1.1'
 	// Apache Common 라이브러리
 	compile("org.apache.commons:commons-collections4:4.2")
 

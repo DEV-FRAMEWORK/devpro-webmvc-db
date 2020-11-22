@@ -45,7 +45,7 @@ public class DataSourceConfiguration {
 
     @Primary
     @Bean(name="dataSource", destroyMethod = "close")
-    @ConfigurationProperties(prefix="spring.datasource.h2")
+    @ConfigurationProperties(prefix="spring.datasource.postgresql")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     } 

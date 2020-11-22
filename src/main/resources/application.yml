@@ -36,19 +36,28 @@ spring:
 #    password:
 
   # 2개 이상 DataSource 설정(config 경로에서 DataSource 설정 필요)
+  # datasource:
+  #   h2:
+  #     platform: h2
+  #     driverClassName: org.h2.Driver
+  #     jdbcUrl: jdbc:h2:~/test;
+  #     username: sa
+  #     password:
+  #   hsql:
+  #     platform: hsql
+  #     driverClassName: org.hsqldb.jdbc.JDBCDriver
+  #     jdbcUrl: jdbc:hsqldb:file:~/hsqltest;encoding=UTF-8
+  #     username: sa
+  #     password:
   datasource:
-    h2:
-      platform: h2
-      driverClassName: org.h2.Driver
-      jdbcUrl: jdbc:h2:~/test;
-      username: sa
-      password:
-    hsql:
-      platform: hsql
-      driverClassName: org.hsqldb.jdbc.JDBCDriver
-      jdbcUrl: jdbc:hsqldb:file:~/hsqltest;encoding=UTF-8
-      username: sa
-      password:
+    hikari: 
+      connectionTimeout: 20000
+      maximumPoolSize : 5 
+#    url: jdbc:postgresql://sport-saas-psql.cf37vedvxld3.ap-northeast-2.rds.amazonaws.com:5432/sportsaas?autoReconnect=true&useSSL=false
+    url: jdbc:postgresql://localhost:5432/devprodb?autoReconnect=true&useSSL=false
+    username: devpro
+    #password: ENC(2L3MvBFx+sCd0DQ79sMY6wR0bJvSGq3R)
+    password: devpro!@#
 
 #  # 분산 트랜잭션(2PC) DataSource 설정(config 경로에서 DataSource 설정 필요)
 #  jta:
