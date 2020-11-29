@@ -21,6 +21,10 @@ public class SampleBoardDomain {
     private String delGb;
     private Timestamp creaDtm;
     private String creaId;
+	public int getIdx() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
 	

@@ -12,7 +12,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
@@ -22,13 +23,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.ktds.devpro.sample.SampleBoardDomain;
 
 import lombok.extern.slf4j.Slf4j;
+//import net.bytebuddy.implementation.bind.annotation.Super;
 
 
 @Slf4j
 @Component("fileUtils")
 public class FileUtil {
-	
-    @Value("${server.filePath}")
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+	@Value("${server.filePath}")
     private static String filePath ;
     
 	@Value("${server.fileExt}")
@@ -66,7 +69,7 @@ public class FileUtil {
 		} else {
 			storedFilePath = storePath; // property 처리...
 		}
-    	log.debug("filepath======>"+storedFilePath );
+    	logger.debug("filepath======>"+storedFilePath );
     	
     	List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         Map<String, Object> listMap = null; 
@@ -82,9 +85,9 @@ public class FileUtil {
 			//시큐어코딩(ES)-부적절한 예외 처리[CWE-253, CWE-440, CWE-754]
 			
 			if (file.mkdirs()){
-				log.debug("[file.mkdirs] saveFolder : Creation Success ");
+				logger.debug("[file.mkdirs] saveFolder : Creation Success ");
 			}else{
-				log.error("[file.mkdirs] saveFolder : Creation Fail ");
+				logger.error("[file.mkdirs] saveFolder : Creation Fail ");
 			}
 		} 
        
@@ -114,7 +117,7 @@ public class FileUtil {
         		//파일생성.
         		file = new File(storedFilePath + storedFileName);
         		
-        		log.debug("filename===>"+storedFilePath + storedFileName);
+        		logger.debug("filename===>"+storedFilePath + storedFileName);
         		
         		//파일 저장.
         		multipartFile.transferTo(file);
@@ -149,6 +152,8 @@ public class FileUtil {
 	
 	
 	public static String filePathBlackList(String value) {
+		
+//		Logger logger = LoggerFactory.getLogger(Super.class.getClass());
 		String returnValue = value;
 		if (returnValue == null || returnValue.trim().equals("")) {
 			return "";
@@ -156,7 +161,7 @@ public class FileUtil {
 		 if (returnValue.charAt(returnValue.length()-1)!='/'){
 			 returnValue+= returnValue + "/";
 		}
-log.debug("return value last index '/' not combined , {}", returnValue.charAt(returnValue.length()-1));
+//		logger.debug("return value last index '/' not combined , {}", returnValue.charAt(returnValue.length()-1));
 		returnValue = returnValue.replaceAll("\\.\\./", ""); // ../
 		returnValue = returnValue.replaceAll("\\.\\.\\\\", ""); // ..\
 		
@@ -198,13 +203,13 @@ log.debug("return value last index '/' not combined , {}", returnValue.charAt(re
 
     private void validateFile(MultipartFile file, String type)  {
 
-    	log.debug("file ori name, {} 파일체크" + type );
-    	log.debug("file ori name, {} 파일확장자체크." + fileExt );
-    	log.debug("file ori name, {} 파일사이즈체크." + FileMaxSize );
+    	logger.debug("file ori name, {} 파일체크" + type );
+    	logger.debug("file ori name, {} 파일확장자체크." + fileExt );
+    	logger.debug("file ori name, {} 파일사이즈체크." + FileMaxSize );
     	
         if("file".equals(type)){
 
-        	log.debug("file ori name, {} 파일체크");
+        	logger.debug("file ori name, {} 파일체크");
          
 
             String fileExt = getFileExt(file.getOriginalFilename());
@@ -219,7 +224,7 @@ log.debug("return value last index '/' not combined , {}", returnValue.charAt(re
                 originalFileName = file.getOriginalFilename();
 
             }
-            log.debug("file ori name, {} 파일명 : ===>" + originalFileName );  
+            logger.debug("file ori name, {} 파일명 : ===>" + originalFileName );  
             
 
             if( (originalFileName.indexOf("\0")>-1) || (originalFileName.indexOf(";")>-1) || (originalFileName.indexOf("./")>-1) || (originalFileName.indexOf(".\\")>-1)) {
@@ -237,7 +242,7 @@ log.debug("return value last index '/' not combined , {}", returnValue.charAt(re
 
                     isValidExt = true;
 
-                    log.debug("isValidExt0 ==== |{}|"+isValidExt);
+                    logger.debug("isValidExt0 ==== |{}|"+isValidExt);
 
                     break;
 
@@ -247,7 +252,7 @@ log.debug("return value last index '/' not combined , {}", returnValue.charAt(re
 
             if( !isValidExt ) {
 
-            	log.debug("isValidExt2 ==== |{}|"+isValidExt);
+            	logger.debug("isValidExt2 ==== |{}|"+isValidExt);
                //예외처리 또는 에러처리 정의.
                //.. throw new Exception("file ext check error 2");
 

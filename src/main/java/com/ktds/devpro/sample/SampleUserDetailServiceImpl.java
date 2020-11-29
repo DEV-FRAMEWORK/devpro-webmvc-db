@@ -24,9 +24,9 @@ public class SampleUserDetailServiceImpl implements UserDetailsService {
 
 		if(user !=null) {
 			builder = User.withUsername(username);
-			builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-			builder.roles(user.getRoles());
-			
+//			builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+//			builder.roles(user.getRoles());
+//			
 		}else {
 			throw new UsernameNotFoundException("User not found!");
 		}

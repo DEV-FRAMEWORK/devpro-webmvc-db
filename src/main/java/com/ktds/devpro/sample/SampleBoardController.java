@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+//import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,7 +72,7 @@ public class SampleBoardController {
 	}
 	
 	@PostMapping(value="/registBoard")
-	public String registBoard( @ModelAttribute @Valid SampleBoardDomain sampleBoardDomain, MultipartHttpServletRequest request) {
+	public String registBoard( @ModelAttribute SampleBoardDomain sampleBoardDomain, MultipartHttpServletRequest request) {
 		
 		logger.debug(request.getRequestURI());
 		

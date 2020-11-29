@@ -3,6 +3,8 @@ package com.ktds.devpro.common.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomErrorController implements ErrorController {
 	
 	private static final String PATH= "/error";
-
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping(value = PATH)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
@@ -25,7 +27,7 @@ public class CustomErrorController implements ErrorController {
         ModelAndView errorPage = new ModelAndView("error");
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);
- log.debug("CustomErrorController.error httpstatusCode : {}", httpErrorCode);
+ logger.debug("CustomErrorController.error httpstatusCode : {}", httpErrorCode);
         switch (httpErrorCode) {
             case 400: {
                 errorMsg = "Http Error Code: 400. Bad Request";
